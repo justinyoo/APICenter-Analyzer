@@ -1,25 +1,30 @@
-param environmentName string
-param suffix string = 'linter'
+metadata description = 'Creates an Application Insights instance based on an existing Log Analytics workspace.'
+param name string
+param dashboardName string = ''
 param location string = resourceGroup().location
-
 param tags object = {}
+param logAnalyticsWorkspaceId string
 
-var longname = '${environmentName}${suffix == null || suffix == '' ? '' : '-'}${suffix}'
-
-resource wrkspc 'Microsoft.OperationalInsights/workspaces@2022-10-01' existing = {
-  name: 'wrkspc-${longname}'
-}
-
-resource appins 'Microsoft.Insights/components@2020-02-02' = {
-  name: 'appins-${longname}'
+resource applicationInsights 'Microsoft.Insights/components@2020-02-02' = {
+  name: name
   location: location
-  kind: 'web'
   tags: tags
+  kind: 'web'
   properties: {
     Application_Type: 'web'
-    Flow_Type: 'Bluefield'
-    IngestionMode: 'LogAnalytics'
-    Request_Source: 'rest'
-    WorkspaceResourceId: wrkspc.id
+    WorkspaceResourceId: logAnalyticsWorkspaceId
   }
 }
+
+module applicationInsightsDashboard 'applicationinsights-dashboard.bicep' = if (!empty(dashboardName)) {
+  name: 'application-insights-dashboard'
+  params: {
+    name: dashboardName
+    location: location
+    applicationInsightsName: applicationInsights.name
+  }
+}
+
+output connectionString string = applicationInsights.properties.ConnectionString
+output instrumentationKey string = applicationInsights.properties.InstrumentationKey
+output name string = applicationInsights.name

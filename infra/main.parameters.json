@@ -9,10 +9,13 @@
       "value": "${AZURE_LOCATION}"
     },
     "useMonitoring": {
-      "value": "${USE_MONITORING}"
+      "value": "${USE_MONITORING=yes}"
     },
-    "apicName": {
+    "apiCenterName": {
       "value": "${APIC_NAME}"
+    },
+    "apiCenterResourceGroupName": {
+      "value": "${APIC_RESOURCE_GROUP_NAME}"
     }
   }
 }

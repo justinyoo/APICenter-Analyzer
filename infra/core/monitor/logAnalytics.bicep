@@ -1,24 +1,22 @@
-param environmentName string
-param suffix string = 'linter'
+metadata description = 'Creates a Log Analytics workspace.'
+param name string
 param location string = resourceGroup().location
-
 param tags object = {}
 
-var longname = '${environmentName}${suffix == null || suffix == '' ? '' : '-'}${suffix}'
-
-resource wrkspc 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
-  name: 'wrkspc-${longname}'
+resource logAnalytics 'Microsoft.OperationalInsights/workspaces@2021-12-01-preview' = {
+  name: name
   location: location
   tags: tags
-  properties: {
+  properties: any({
+    retentionInDays: 30
+    features: {
+      searchVersion: 1
+    }
     sku: {
       name: 'PerGB2018'
     }
-    retentionInDays: 30
-    workspaceCapping: {
-      dailyQuotaGb: -1
-    }
-    publicNetworkAccessForIngestion: 'Enabled'
-    publicNetworkAccessForQuery: 'Enabled'
-  }
+  })
 }
+
+output id string = logAnalytics.id
+output name string = logAnalytics.name
