@@ -30,13 +30,13 @@ param useMonitoring string
 param functionName string = ''
 param appServicePlanName string = ''
 param storageAccountName string = ''
-param apiCenterName string = ''
+param apiCenterName string
 param logAnalyticsName string = ''
 param applicationInsightsName string = ''
 param applicationInsightsDashboardName string = ''
 
 param resourceGroupName string = ''
-param apiCenterResourceGroupName string = ''
+param apiCenterResourceGroupName string
 
 var abbrs = loadJsonContent('./abbreviations.json')
 var resourceToken = toLower(uniqueString(subscription().id, environmentName, location))

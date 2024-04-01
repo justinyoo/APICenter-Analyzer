@@ -70,20 +70,22 @@ azd init
 ```
 Enter an environment name.
 
-(Optional) If you want to use an existing api center resource instead of creating a new one, you can run the following command to set its name and its resource group name as environment variables.
-```
-azd env set APIC_NAME <your-api-center-name>
-
-azd env set APIC_RESOURCE_GROUP_NAME <your-api-center-resource-group-name>
-```
->You can set the environment variable `USE_MONITORING` to `yes` or `no` to decide whether create monitoring resources or not. The default value is `yes`.
-
 Then, run `azd up` to provision all the resources to Azure and deploy the code to those resources.
 ```
 azd up
 ```
 
-Select your desired `subscription` and `location`. Then choose a resource group or create a new resource group. Wait a moment for the resource deployment to complete. Then you can upload your own api definition for test.
+Select your desired `subscription` and `location`. Then choose whether to create the monitoring resources. If you want to use an existing api center resource, pass the values for `apiCenterName` and `apiCenterResourceGroupName`. Otherwise leave them blank to create a new one. Wait a moment for the resource deployment to complete. Then you can upload your own api definition for test.
+
+(Optional) You can also set the Env variables manually using the following command to skip setting them during the `azd up` process.
+```
+azd env set USE_MONITORING <yes/no>
+
+azd env set APIC_NAME <your-api-center-name>
+
+azd env set APIC_RESOURCE_GROUP_NAME <your-api-center-resource-group-name>
+```
+
 
 > Under Linux, if a postdeploy.sh permission denied error occurs, please run `chmod +x infra/hooks/postdeploy.sh` to add role.
 
