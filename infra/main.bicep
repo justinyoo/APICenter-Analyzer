@@ -7,6 +7,13 @@ param environmentName string
 
 @minLength(1)
 @description('Primary location for all resources')
+@allowed([
+  'australiaeast'
+  'centralindia'
+  'eastus'
+  'uksouth'
+  'westeurope'
+])
 param location string
 
 @description('Should monitoring resources be provisioned?')
@@ -100,7 +107,6 @@ module apiCenter './app/api-center.bicep' =
       name: !empty(apiCenterName) ? apiCenterName : 'apic-${resourceToken}'
       location: location
       tags: tags
-      apiName: 'api1'
     }
   }
 

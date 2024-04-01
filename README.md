@@ -2,25 +2,25 @@
 
 ## Overview
 
-- 💡 [What is Azure API Center?](./#-what-is-azure-api-center)
-  - 💼 API Governance & Azure API Center
-  - 💼 API Analysis in Azure API Center (Overview)
-- 🚀 [How to Run](./#-how-to-run-api-analysis)
-  - 🔧 Configure your environment
-  - 🔧 Running the sample using the Azure Developer CLI (azd)
-  - 🔧 Configure & run your function locally
-- ☁️ [How to deploy](./#-how-to-deploy)
-- 📄 [Custom Ruleset](./#-custom-ruleset)
-- ✏️ [Contributing](./#-contributing)
-- 📖 [Code of Conduct](./#-code-of-conduct)
-- ✌️ [Trademark Notice](./#-trademark-notice)
-- 🔎 [Telemetry](./#-telemetry)
+- :bulb: [What is Azure API Center?](./#-what-is-azure-api-center)
+  - :memo: API Governance & Azure API Center
+  - :memo: API Analysis in Azure API Center (Overview)
+- :rocket: [How to Run](./#-how-to-run-api-analysis)
+  - :wrench: Configure your environment
+  - :wrench: Running the sample using the Azure Developer CLI (azd)
+  - :wrench: Configure & run your function locally
+- :package: [How to deploy](./#-how-to-deploy)
+- :page_facing_up: [Custom Ruleset](./#-custom-ruleset)
+- :pencil2: [Contributing](./#-contributing)
+- :construction: [Code of Conduct](./#-code-of-conduct)
+- :ok_hand: [Trademark Notice](./#-trademark-notice)
+- :mag: [Telemetry](./#-telemetry)
 
-## 💡 What is Azure API Center?
+## :bulb: What is Azure API Center?
 
 [Azure API Center](https://learn.microsoft.com/en-us/azure/api-center/overview) is a service that helps you develop and maintain a structured inventory of your organization’s APIs. With API Center, you can track all of your APIs in a centralized location, regardless of their type, lifecycle stage, or deployment location. API Center enables API discovery, reuse, and governance empowering API Platform Teams.
 
-### 💼 API Governance & Azure API Center
+### :memo: API Governance & Azure API Center
 
 API governance is a critical aspect of managing APIs across an organization. It involves establishing and enforcing policies and procedures that guarantee the quality, consistency, security, and compliance of APIs. Effective API governance not only maximizes the value of an organization's API portfolio but also reduces complexity, eliminates redundancy, and mitigates potential risks.
 
@@ -30,14 +30,14 @@ To facilitate robust API governance, we're excited to introduce **API Analysis**
 
 > API Analysis currently supports OpenAPI v2, v3.x, and AsyncAPI specifications uploaded as JSON or YAML files.
 
-### 💼 API Analysis in Azure API Center (Overview)
+### :memo: API Analysis in Azure API Center (Overview)
 
 Here is a high-level overview of how API analysis works in Azure API Center
 ![Overview](./images/overview.png)
 
-## 🚀 How to Run API Analysis
+## :rocket: How to Run API Analysis
 
-### 🔧 Configure your environment
+### :wrench: Configure your environment
 
 Before you get started, make sure you have the following requirements in place:
 
@@ -47,24 +47,12 @@ Before you get started, make sure you have the following requirements in place:
 - [Visual Studio Code](https://code.visualstudio.com/) on one of the [supported platforms](https://code.visualstudio.com/docs/supporting/requirements#_platforms).
 - The [Azure Functions extension v1.10.4](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions) or above for Visual Studio Code.
 - [Azure Functions Core Tools v4.0.5382 or above](https://learn.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=windows%2Cisolated-process%2Cnode-v4%2Cpython-v2%2Chttp-trigger%2Ccontainer-apps&pivots=programming-language-typescript#install-the-azure-functions-core-tools).
+- [Azure Developer CLI](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd).
+- [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli).
 
-### 🔧 Running the sample using the Azure Developer CLI (azd)
+### :wrench: Running the sample using the Azure Developer CLI (azd)
 
 The Azure Developer CLI (`azd`) is a developer-centric command-line interface (CLI) tool for creating Azure applications.
-
-You need to install it before running and deploying with the Azure Developer CLI.
-
-### Windows
-
-```powershell
-powershell -ex AllSigned -c "Invoke-RestMethod 'https://aka.ms/install-azd.ps1' | Invoke-Expression"
-```
-
-### Linux/MacOS
-
-```
-curl -fsSL https://aka.ms/install-azd.sh | bash
-```
 
 After logging in with the following command, you will be able to use the `azd` cli to quickly provision and deploy the application.
 
@@ -76,9 +64,9 @@ azd auth login
 az login
 ```
 
-Then, execute the `azd init` command to initialize the environment (You do not need to run this command if you already have the code or have opened this in a Codespace or DevContainer).
+Initialize your Azure environment.
 ```
-azd init -t https://github.com/Azure/APICenter-Analyzer
+azd init
 ```
 Enter an environment name.
 
@@ -101,35 +89,37 @@ Select your desired `subscription` and `location`. Then choose a resource group 
 
 You can also run the sample directly locally (See below).
 
-### 🔧 Configure & run your function locally
+### :wrench: Configure & run your function locally
 
-- Clone the APICenter-Analyzer repository to your local machine <TODO: insert link>
+- Clone the APICenter-Analyzer repository to your local machine.
 - Open the Project in Visual Studio Code
-- To start the function locally, press F5 or the Run and Debug icon in the left-hand side Activity bar. The Terminal panel displays the Output from Core Tools. Your app starts in the Terminal panel. You can see the URL endpoint of your HTTP-triggered function running locally. (If you have trouble running on Windows, make sure that the default terminal for Visual Studio Code isn't set to WSL Bash.)
+- Set a breakpoint
+- To start the function locally, press `F5` or the Run and Debug icon in the left-hand side Activity bar. The Terminal panel should display the Output from Azure Functions Core Tools.
+- Follow the instructions in [Test your Event Grid handler locally](https://learn.microsoft.com/en-us/azure/communication-services/how-tos/event-grid/local-testing-event-grid) to trigger the function.
 
-## ☁️ How to deploy
+## :package: How to deploy
 
 Follow the instructions in [Quickstart: Create a function in Azure with TypeScript using Visual Studio Code](https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-typescript?pivots=nodejs-model-v4#sign-in-to-azure). Start from the "Sign in to Azure" section and complete all subsequent sections.
 
-## 📄 Custom Ruleset
+## :page_facing_up: Custom Ruleset
 
 This template provides you with the default OAS (OpenAPI Specification) ruleset from Spectral. To see the exact rules within the ruleset, see [OpenAPI Rules](https://docs.stoplight.io/docs/spectral/4dec24461f3af-open-api-rules).
 
 If you want to customize your Ruleset for analysis, simply swap out the default ruleset file oas.yaml located in `{workSpaceFolder}/resources/rulesets` with any valid Spectral ruleset file. We accept all valid Spectral formats (YAML, JSON, and JavaScript). Afterward, head over to the `{workSpaceFolder}/src/constants.ts` file and update the `RulesetFileName` constant with your chosen ruleset file name.
 
-## ✏️ Contributing
+## :pencil2: Contributing
 
 See [the contribution guidelines](CONTRIBUTING.md) for ideas and guidance on how to improve the template. Thank you!
 
-## 📖 Code of Conduct
+## :construction: Code of Conduct
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-## ✌️ Trademark Notice
+## :ok_hand: Trademark Notice
 
 Trademarks This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft trademarks or logos is subject to and must follow Microsoft’s Trademark & Brand Guidelines. Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship. Any use of third-party trademarks or logos are subject to those third-party’s policies.
 
-## 🔎 Telemetry
+## :mag: Telemetry
 
 Data Collection. The software may collect information about you and your use of the software and send it to Microsoft. Microsoft may use this information to provide services and improve our products and services. You may turn off the telemetry as described in the repository. There are also some features in the software that may enable you and Microsoft to collect data from users of your applications. If you use these features, you must comply with applicable law, including providing appropriate notices to users of your applications together with a copy of Microsoft’s privacy statement. Our privacy statement is located at https://go.microsoft.com/fwlink/?LinkID=824704. You can learn more about data collection and use in the help documentation and our privacy statement. Your use of the software operates as your consent to these practices.
 
