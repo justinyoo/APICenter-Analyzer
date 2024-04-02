@@ -5,6 +5,9 @@ echo "Configuring EventGrid subscription for API Center"
 # Sleep for 2 minutes to allow the function app to be deployed
 sleep 120
 
+# Load the azd environment variables
+. ./infra/hooks/load_azd_env.sh
+
 functionID=$(az functionapp function show --name ${AZURE_FUNCTION_NAME} \
     --function-name apicenter-analyzer --resource-group ${RESOURCE_GROUP_NAME} \
     --query "id" --output tsv)

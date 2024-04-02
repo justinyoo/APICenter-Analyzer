@@ -1,13 +1,11 @@
 # PowerShell syntax
-echo "Configuring EventGrid subscription for API Center"
+Write-Host "Configuring EventGrid subscription for API Center"
 
 # Sleep for 2 minutes to allow the function app to be deployed
 Start-Sleep -s 120
 
-$output = azd env get-values
-$resourceGroupName = ($output -split "`n" | Where-Object { $_ -match 'RESOURCE_GROUP_NAME' }).Split("=")[1]
-$azureApiCenterId = ($output -split "`n" | Where-Object { $_ -match 'AZURE_API_CENTER_ID' }).Split("=")[1]
-$azureFunctionName = ($output -split "`n" | Where-Object { $_ -match 'AZURE_FUNCTION_NAME' }).Split("=")[1]
-$azureFunctionId = az functionapp function show --name $azureFunctionName --function-name apicenter-analyzer --resource-group $resourceGroupName --query "id" --output tsv
+# Load the azd environment variables
+./infra/hooks/load_azd_env.ps1
 
-az eventgrid event-subscription create --name on-api-definition-added-or-updated --source-resource-id "$azureApiCenterId" --endpoint "$azureFunctionId" --endpoint-type azurefunction --included-event-types Microsoft.ApiCenter.ApiDefinitionAdded Microsoft.ApiCenter.ApiDefinitionUpdated
+$azureFunctionId = az functionapp function show --name $env:AZURE_FUNCTION_NAME --function-name apicenter-analyzer --resource-group $env:RESOURCE_GROUP_NAME --query "id" --output tsv
+az eventgrid event-subscription create --name on-api-definition-added-or-updated --source-resource-id "$env:AZURE_API_CENTER_ID" --endpoint "$azureFunctionId" --endpoint-type azurefunction --included-event-types Microsoft.ApiCenter.ApiDefinitionAdded Microsoft.ApiCenter.ApiDefinitionUpdated

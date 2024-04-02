@@ -64,18 +64,12 @@ azd auth login
 az login
 ```
 
-Initialize your Azure environment.
-```
-azd init
-```
-Enter an environment name.
-
 Then, run `azd up` to provision all the resources to Azure and deploy the code to those resources.
 ```
 azd up
 ```
 
-Select your desired `subscription` and `location`. Then choose whether to create the monitoring resources. If you want to use an existing api center resource, pass the values for `apiCenterName` and `apiCenterResourceGroupName`. Otherwise leave them blank to create a new one. Wait a moment for the resource deployment to complete. Then you can upload your own api definition for test.
+Enter an environment name and select your desired `subscription` and `location`. Then choose whether to create the monitoring resources. If you want to use an existing api center resource, pass the values for `apiCenterName` and `apiCenterResourceGroupName`. Otherwise leave them blank to create a new one. Wait a moment for the resource deployment to complete. Then you can upload your own api definition for test.
 
 (Optional) You can also set the Env variables manually using the following command to skip setting them during the `azd up` process.
 ```

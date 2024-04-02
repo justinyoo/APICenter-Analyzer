@@ -14,6 +14,11 @@ param environmentName string
   'uksouth'
   'westeurope'
 ])
+@metadata({
+  azd: {
+    type: 'location'
+  }
+})
 param location string
 
 @description('Should monitoring resources be provisioned?')
@@ -64,7 +69,7 @@ module appServicePlan './core/host/appserviceplan.bicep' = {
     location: location
     tags: tags
     sku: {
-      name: 'B1'
+      name: 'Y1'
     }
     kind: 'linux'
   }
@@ -95,6 +100,7 @@ module function './core/host/functions.bicep' = {
     storageAccountName: storageAccount.outputs.name
     managedIdentity: true
     applicationInsightsName: useMonitoring == 'yes' ? monitoring.outputs.applicationInsightsName : ''
+    alwaysOn: false
   }
 }
 
