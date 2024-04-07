@@ -73,15 +73,12 @@ Enter an environment name and select your desired `subscription` and `location`.
 
 (Optional) You can also set the Env variables manually using the following command to skip setting them during the `azd up` process.
 ```
-azd env set USE_MONITORING <yes/no>
+azd env set USE_MONITORING <true/false>
 
 azd env set APIC_NAME <your-api-center-name>
 
 azd env set APIC_RESOURCE_GROUP_NAME <your-api-center-resource-group-name>
 ```
-
-
-> Under Linux, if a postdeploy.sh permission denied error occurs, please run `chmod +x infra/hooks/postdeploy.sh` to add role.
 
 You can also run the sample directly locally (See below).
 

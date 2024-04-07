@@ -22,11 +22,7 @@ param environmentName string
 param location string
 
 @description('Should monitoring resources be provisioned?')
-@allowed([
-  'yes'
-  'no'
-])
-param useMonitoring string
+param useMonitoring bool
 
 // Optional parameters to override the default azd resource naming conventions. Update the main.parameters.json file to provide values. e.g.,:
 // "resourceGroupName": {
@@ -99,7 +95,7 @@ module function './core/host/functions.bicep' = {
     runtimeVersion: '18'
     storageAccountName: storageAccount.outputs.name
     managedIdentity: true
-    applicationInsightsName: useMonitoring == 'yes' ? monitoring.outputs.applicationInsightsName : ''
+    applicationInsightsName: useMonitoring ? monitoring.outputs.applicationInsightsName : ''
     alwaysOn: false
   }
 }
@@ -142,7 +138,7 @@ module apiCenterExistAccess './app/api-center-role.bicep' =
 
 // Monitor application with Azure Monitor
 module monitoring './core/monitor/monitoring.bicep' =
-  if (useMonitoring == 'yes') {
+  if (useMonitoring) {
     name: 'monitoring'
     scope: rg
     params: {

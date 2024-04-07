@@ -9,6 +9,17 @@ services:
     language: ts
     host: function
 hooks:
+  preup:
+    posix:
+      shell: sh
+      run: infra/hooks/preup.sh
+      continueOnError: false
+      interactive: true
+    windows:
+      shell: pwsh
+      run: infra/hooks/preup.ps1
+      continueOnError: false
+      interactive: true
   preprovision:
     posix:
       shell: sh

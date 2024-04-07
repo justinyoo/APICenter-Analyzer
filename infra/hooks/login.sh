@@ -2,6 +2,10 @@
 
 # AZD LOGIN
 
+# Load the azd environment variables
+DIR=$(dirname "$(realpath "$0")")
+"$DIR/load_azd_env.sh"
+
 # Check if the user is logged in to Azure
 login_status=$(azd auth login --check-status)
 

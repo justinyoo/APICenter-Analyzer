@@ -1,7 +1,8 @@
 # AZD LOGIN
 
 # Load the azd environment variables
-./infra/hooks/load_azd_env.ps1
+$DIR = Split-Path $MyInvocation.MyCommand.Path
+& "$DIR\load_azd_env.ps1"
 
 # Check if the user is logged in to Azure
 $login_status = azd auth login --check-status
