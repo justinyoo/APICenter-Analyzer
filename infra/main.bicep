@@ -113,26 +113,24 @@ module apiCenter './app/api-center.bicep' =
   }
 
 // Give api center access to the function
-module apiCenterAccess './app/api-center-role.bicep' =
+module apiCenterAccess './core/security/apicenter-access.bicep' =
   if (createAPIC) {
     name: 'apicenteraccess'
     scope: rg
     params: {
       apiCenterName: createAPIC ? apiCenter.outputs.name : apiCenterName
       principalId: function.outputs.identityPrincipalId
-      principalType: 'ServicePrincipal'
     }
   }
 
 // Give api center access to the function if api center exists
-module apiCenterExistAccess './app/api-center-role.bicep' =
+module apiCenterExistAccess './core/security/apicenter-access.bicep' =
   if (!createAPIC) {
     name: 'apicenteraccessexist'
     scope: apiCenterRG
     params: {
       apiCenterName: createAPIC ? apiCenter.outputs.name : apiCenterName
       principalId: function.outputs.identityPrincipalId
-      principalType: 'ServicePrincipal'
     }
   }
 
