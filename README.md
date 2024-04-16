@@ -57,10 +57,10 @@ The Azure Developer CLI (`azd`) is a developer-centric command-line interface (C
 After logging in with the following command, you will be able to use the `azd` cli to quickly provision and deploy the application.
 
 ```
-# authenticate to Azure Developer CLI
+# Authenticate with Azure Developer CLI
 azd auth login
 
-# authenticate to Azure CLI
+# Authenticate with Azure CLI
 az login
 ```
 
