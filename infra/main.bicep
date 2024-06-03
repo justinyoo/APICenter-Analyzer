@@ -114,7 +114,7 @@ module diagnostics './core/monitor/appservice-diagnosticsettings.bicep' = if (us
 }
 
 // Create the api center
-module apiCenter './core//gateway/api-center.bicep' = if (createAPIC) {
+module apiCenter './core/gateway/api-center.bicep' = if (createAPIC) {
   name: 'apicenter'
   scope: rg
   params: {
